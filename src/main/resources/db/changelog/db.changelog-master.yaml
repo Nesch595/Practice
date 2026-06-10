@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changes/001-create-users.sql
+  - include:
+      file: db/changelog/changes/002-create-hotels.sql
+  - include:
+      file: db/changelog/changes/003-create-rooms.sql
+  - include:
+      file: db/changelog/changes/004-create-bookings.sql
+  - include:
+      file: db/changelog/changes/005-create-loyalty-programs.sql

@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS loyalty_programs (
+    id BIGSERIAL PRIMARY KEY,
+    userId BIGINT NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+    totalPoints INTEGER,
+    tier VARCHAR(10) NOT NULL DEFAULT 'BRONZE' CHECK(tier IN ('BRONZE', 'SILVER', 'GOLD', 'PLATINUM')),
+    totalSpent DECIMAL(10,2) CHECK (totalSpent >= 0)
+);
