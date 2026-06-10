@@ -4,7 +4,9 @@ CREATE TABLE IF NOT EXISTS hotels (
     city VARCHAR(255) NOT NULL,
     country VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
-    rating INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
     managerId BIGINT NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
-    isDeleted BOOLEAN NOT NULL DEFAULT FALSE
+    rating DECIMAL(2,1) DEFAULT 0.0,
+    isDeleted BOOLEAN NOT NULL DEFAULT FALSE,
+
+    CONSTRAINT fk_hotel_manager FOREIGN KEY (managerId) REFERENCES users(id)
 );

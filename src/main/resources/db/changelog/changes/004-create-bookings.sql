@@ -1,10 +1,16 @@
 CREATE TABLE IF NOT EXISTS bookings (
     id BIGSERIAL PRIMARY KEY,
-    userId BIGINT NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
-    roomId BIGINT NOT NULL REFERENCES rooms(id) ON DELETE RESTRICT,
+    userId BIGINT NOT NULL,
+    roomId BIGINT NOT NULL,
     checkInDate DATE NOT NULL,
-    checkOutDate DATE NOT NULL CHECK (checkOutDate > checkInDate),
+    checkOutDate DATE NOT NULL,
     totalPrice DECIMAL(10,2) NOT NULL CHECK (totalPrice > 0),
     status VARCHAR(10) NOT NULL DEFAULT 'CREATED' CHECK(status IN ('CREATED', 'CONFIRMED', 'CANCELLED', 'COMPLETED')),
-    isDeleted BOOLEAN NOT NULL DEFAULT FALSE
+    isDeleted BOOLEAN NOT NULL DEFAULT FALSE,
+    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP,
+
+    CONSTRAINT fk_booking_user FOREIGN KEY (userId) REFERENCES users(id) ON DELETE RESTRICT,
+    CONSTRAINT fk_booking_room FOREIGN KEY (roomId) REFERENCES rooms(id) ON DELETE RESTRICT,
+    CONSTRAINT chk_dates CHECK (checkOutDate > checkInDate)
 );
